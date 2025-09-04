@@ -1,10 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 using OTPValidation.Core.Feature.CreateOtpUseCase;
 using OTPValidation.Core.Feature.CreateOtpUseCase.CreateOtpValidation;
 using OTPValidation.Core.Shared.Domain.Authenticator;
 using OTPValidation.Core.Shared.Domain.Services;
 using OTPValidation.Core.Shared.Domain.Services.QrCodeGenerator;
+using OTPValidation.Core.Shared.Infrastructure.Database;
+using OTPValidation.Core.Shared.Infrastructure.Options;
+using System.Data;
 
 namespace OTPValidation.Core.Shared.Infrastructure.IoC
 {
@@ -13,8 +18,17 @@ namespace OTPValidation.Core.Shared.Infrastructure.IoC
         public static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
             return services
+                   .AddOptions(configuration)
                    .AddServices(configuration)
-                   .UseCases(configuration);
+                   .AddUseCases(configuration)
+                   .AddPostgreDatabase(configuration);
+        }
+
+        private static IServiceCollection AddOptions(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddOptions<PostgresDbOptions>().Bind(configuration.GetSection(PostgresDbOptions.SectionName));
+
+            return services;
         }
 
         private static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
@@ -26,10 +40,22 @@ namespace OTPValidation.Core.Shared.Infrastructure.IoC
             return services;
         }
 
-        private static IServiceCollection UseCases(this IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection AddUseCases(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<ICreateOtpUseCase, CreateOtpUseCase>();
             services.AddScoped<ICreateOtpValidationUseCase, CreateOtpValidationUseCase>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddPostgreDatabase(this IServiceCollection services, IConfiguration configuration)
+        {
+            var postgresOptions = configuration.GetSection(PostgresDbOptions.SectionName).Get<PostgresDbOptions>();
+            services.AddDbContext<OtpValidationDBContext>(options =>
+            {
+                var connectionString = postgresOptions!.BuildConnectionString();
+                options.UseNpgsql(connectionString);
+            });
 
             return services;
         }
