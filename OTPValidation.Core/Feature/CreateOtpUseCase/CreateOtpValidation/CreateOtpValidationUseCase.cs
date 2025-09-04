@@ -1,5 +1,4 @@
-﻿using OTPValidation.Core.Shared.Domain.Enums;
-using OTPValidation.Core.Shared.Domain.Request;
+﻿using OTPValidation.Core.Shared.Domain.Request;
 using OTPValidation.Core.Shared.Infrastructure.Crosscuting.Utils;
 using OTPValidation.Core.Shared.Infrastructure.CrossCutting.NotificationError;
 
@@ -15,9 +14,6 @@ namespace OTPValidation.Core.Feature.CreateOtpUseCase.CreateOtpValidation
 
             if (!request.Email.IsValidEmail())
                 notificationErros.AddError(nameof(request.Email), "O email é inválido");
-
-            if (request.Authenticator == Authenticators.None)
-                notificationErros.AddError(nameof(request.Authenticator), "O authenticator é inválido");
 
             return notificationErros;
         }

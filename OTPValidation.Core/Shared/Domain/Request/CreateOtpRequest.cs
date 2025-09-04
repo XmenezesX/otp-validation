@@ -1,5 +1,4 @@
-﻿using OTPValidation.Core.Shared.Domain.Enums;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace OTPValidation.Core.Shared.Domain.Request
 {
@@ -10,8 +9,5 @@ namespace OTPValidation.Core.Shared.Domain.Request
 
         [JsonPropertyName("password")]
         public string Password { get; set; }
-
-        [JsonPropertyName("authenticator")]
-        public Authenticators Authenticator { get; set; }
     }
 }

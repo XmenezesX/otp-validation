@@ -2,8 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using OTPValidation.Core.Feature.CreateOtpUseCase;
 using OTPValidation.Core.Feature.CreateOtpUseCase.CreateOtpValidation;
-using OTPValidation.Core.Shared.Domain.Authenticator.GoogleAuthenticator;
+using OTPValidation.Core.Shared.Domain.Authenticator;
 using OTPValidation.Core.Shared.Domain.Services;
+using OTPValidation.Core.Shared.Domain.Services.QrCodeGenerator;
 
 namespace OTPValidation.Core.Shared.Infrastructure.IoC
 {
@@ -19,7 +20,8 @@ namespace OTPValidation.Core.Shared.Infrastructure.IoC
         private static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IOtpService, OtpService>();
-            services.AddScoped<IGoogleAuthenticator, GoogleAuthenticator>();
+            services.AddScoped<IAuthenticatorService, AuthenticatorService>();
+            services.AddScoped<IQrCodeGeneratorService, QrCodeGeneratorService>();
 
             return services;
         }

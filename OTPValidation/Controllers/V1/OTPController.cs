@@ -10,13 +10,14 @@ namespace OTPValidation.API.Controllers.V1
     public sealed class OTPController : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> CreateOTPAsync([FromBody] CreateOtpRequest request,
+        public IActionResult CreateOTPAsync([FromBody] CreateOtpRequest request,
                                                         [FromServices] IServiceProvider serviceProvider,
                                                         CancellationToken cancellationToken)
         {
 
-            return this.DefaultResult(await serviceProvider.GetRequiredService<ICreateOtpUseCase>()
-                                                           .ExecAsync(request, cancellationToken));
+            var result = serviceProvider.GetRequiredService<ICreateOtpUseCase>()
+                                         .Exec(request, cancellationToken);
+            return File(result, "image/png");
         }
     }
 }
