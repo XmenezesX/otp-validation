@@ -17,5 +17,10 @@ namespace OTPValidation.Core.Shared.Domain.Services
 
             return qrCode;
         }
+
+        public bool ValidateOtp(ValidateOtpRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

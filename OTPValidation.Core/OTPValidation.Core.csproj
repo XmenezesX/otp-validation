@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Shared\Domain\Entites\" />
+    <Folder Include="Shared\Domain\Repository\" />
     <Folder Include="Shared\Domain\Response\" />
     <Folder Include="Shared\Domain\Services\Authenticator\" />
     <Folder Include="Shared\Infrastructure\Repository\" />

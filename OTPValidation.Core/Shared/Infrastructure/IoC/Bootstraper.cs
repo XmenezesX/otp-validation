@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
 using OTPValidation.Core.Feature.CreateOtpUseCase;
 using OTPValidation.Core.Feature.CreateOtpUseCase.CreateOtpValidation;
+using OTPValidation.Core.Feature.ValidateOtpUseCase;
+using OTPValidation.Core.Feature.ValidateOtpUseCase.Validation;
 using OTPValidation.Core.Shared.Domain.Authenticator;
 using OTPValidation.Core.Shared.Domain.Services;
 using OTPValidation.Core.Shared.Domain.Services.QrCodeGenerator;
@@ -44,6 +46,9 @@ namespace OTPValidation.Core.Shared.Infrastructure.IoC
         {
             services.AddScoped<ICreateOtpUseCase, CreateOtpUseCase>();
             services.AddScoped<ICreateOtpValidationUseCase, CreateOtpValidationUseCase>();
+
+            services.AddScoped<IValidateOtpUseCase, ValidateOtpUseCase>();
+            services.AddScoped<IValidateOtpValidationUseCase, ValidateOtpValidationUseCase>();
 
             return services;
         }
