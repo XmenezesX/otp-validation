@@ -42,9 +42,15 @@ namespace OTPValidation.Core.Shared.Domain.Services
             }
             
             var otpEntity = operationEntity.SucessAs<OtpEntity>();
-            var aaa = _serviceProvider.GetRequiredService<IAuthenticator>()
-                                      .Validate(request.Code, otpEntity.SecretKey);
-            throw new NotImplementedException();
+            var result = _serviceProvider.GetRequiredService<IAuthenticator>()
+                                         .Validate(request.Code, otpEntity.SecretKey);
+            var response = new ValidationOtpResponse()
+            {
+                IsValid = result,
+                Message = result ? "Validação realizada com sucesso!" : "Código inválido"
+            };
+
+            return response.AsSuccess();
         }
     }
 }

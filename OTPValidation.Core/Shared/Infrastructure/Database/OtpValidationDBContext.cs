@@ -14,18 +14,7 @@ namespace OTPValidation.Core.Shared.Infrastructure.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-            //{
-            //    if (typeof(BaseInfraEntity).IsAssignableFrom(entityType.ClrType))
-            //    {
-            //        var parameter = Expression.Parameter(entityType.ClrType, "e");
-            //        var deletedAtProp = Expression.Property(parameter, nameof(BaseInfraEntity.DeletedAt));
-            //        var condition = Expression.Equal(deletedAtProp, Expression.Constant(null, typeof(DateTimeOffset?)));
-            //        var lambda = Expression.Lambda(condition, parameter);
-
-            //        modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
-            //    }
-            //}
+           
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
                 if (typeof(BaseInfraEntity).IsAssignableFrom(entityType.ClrType))

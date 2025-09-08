@@ -8,17 +8,15 @@ namespace OTPValidation.Core.Feature.ValidateOtpUseCase
 {
     public sealed class ValidateOtpUseCase(IServiceProvider _serviceProvider) : IValidateOtpUseCase
     {
-        public Task<IOperation> Exec(ValidateOtpRequest request, CancellationToken cancellationToken)
+        public async Task<IOperation> Exec(ValidateOtpRequest request, CancellationToken cancellationToken)
         {
             var notifcation = _serviceProvider.GetRequiredService<IValidateOtpValidationUseCase>()
                                               .Validate(request);
             if (notifcation.HaveError())
                 throw new Exception("Request inválida");
 
-            var result = _serviceProvider.GetRequiredService<IOtpService>()
-                                         .ValidateOtp(request);
-
-            throw new NotImplementedException();
+            return await _serviceProvider.GetRequiredService<IOtpService>()
+                                               .ValidateOtp(request);
         }
     }
 }

@@ -67,6 +67,7 @@ namespace OTPValidation.Core.Shared.Infrastructure.IoC
             {
                 var connectionString = postgresOptions!.BuildConnectionString();
                 options.UseNpgsql(connectionString);
+                
             });
 
             return services;

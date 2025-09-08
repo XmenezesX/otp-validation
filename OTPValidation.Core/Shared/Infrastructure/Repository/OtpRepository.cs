@@ -6,7 +6,7 @@ using OTPValidation.Core.Shared.Infrastructure.CrossCutting.Operation;
 using OTPValidation.Core.Shared.Infrastructure.Database;
 using OTPValidation.Core.Shared.Infrastructure.Database.Entites;
 using Soollar.Transactional.Core.Shared.Infraestructure.Data.DataBase.PgAdmin.InternalDbContext.Map;
-using System.Threading;
+using System.Data;
 
 namespace OTPValidation.Core.Shared.Infrastructure.Repository
 {
@@ -36,6 +36,7 @@ namespace OTPValidation.Core.Shared.Infrastructure.Repository
                     Console.WriteLine("Entidade é nula");
                     return OperationFactory.CreateFail<OtpEntity>(NotificationErrors.Create(nameof(entityInfra), "Entidade nao encontrada!"));
                 }
+
                 var entity = (OtpEntity)DataBaseToDomainMap.Map(entityInfra);
                 return entity.AsSuccess();
             }
