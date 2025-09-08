@@ -52,7 +52,6 @@ namespace OTPValidation.Core.Shared.Infrastructure.Database
 
                 if (entry.State == EntityState.Deleted)
                 {
-                    // Soft delete
                     entry.State = EntityState.Modified;
                     entry.Entity.DeletedAt = DateTimeOffset.UtcNow;
                 }

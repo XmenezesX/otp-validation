@@ -13,7 +13,7 @@ namespace OTPValidation.Core.Shared.Infrastructure.Database.Base
         public DateTimeOffset CreatedAt { get; set; }
 
         [Column("updated_at")]
-        public DateTimeOffset? UpdatedAt { get;set; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset? UpdatedAt { get;set; }
 
         [Column("deleted_at")]
         public DateTimeOffset? DeletedAt { get; set; }

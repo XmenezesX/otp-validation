@@ -25,6 +25,10 @@ namespace OTPValidation.API
                     { "Connection:Postgres:Database", Environment.GetEnvironmentVariable("CONNECTION_POSTGRES_DATABASE") },
                     { "Connection:Postgres:Username", Environment.GetEnvironmentVariable("CONNECTION_POSTGRES_USERNAME") },
                     { "Connection:Postgres:Password", Environment.GetEnvironmentVariable("CONNECTION_POSTGRES_PASSWORD") },
+
+                    // OTP
+                    { "OTP:Validation:Period:Validation", Environment.GetEnvironmentVariable("OTP_VALIDATE_IN_SECONDS") },
+                    { "OTP:Validation:Number:Digits", Environment.GetEnvironmentVariable("OTP_NUMBER_DIGITS") },
                 }
             ));
             return configurationBuild.Build();

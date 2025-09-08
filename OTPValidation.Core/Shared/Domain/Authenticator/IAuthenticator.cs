@@ -1,8 +1,8 @@
 ﻿namespace OTPValidation.Core.Shared.Domain.Authenticator
 {
-    public interface IAuthenticatorService
+    public interface IAuthenticator
     {
-        (string base32Secret, string otpUrl) Create(string email);
+        (string secretKey, string otpUri) Create(string email);
         bool Validate(string code, string secretKey);
     }
 }

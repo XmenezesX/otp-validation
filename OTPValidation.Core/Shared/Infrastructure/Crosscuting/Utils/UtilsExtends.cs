@@ -24,6 +24,8 @@ namespace OTPValidation.Core.Shared.Infrastructure.Crosscuting.Utils
 			}
         }
 
+        public static string ToBase64(this byte[] bytes) {  return Convert.ToBase64String(bytes); }
+
         public static IActionResult DefaultResult(this ControllerBase controller, IOperation operation)
         {
             if (operation.IsFail())

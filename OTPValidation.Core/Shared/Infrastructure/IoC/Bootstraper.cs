@@ -1,17 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
 using OTPValidation.Core.Feature.CreateOtpUseCase;
 using OTPValidation.Core.Feature.CreateOtpUseCase.CreateOtpValidation;
 using OTPValidation.Core.Feature.ValidateOtpUseCase;
 using OTPValidation.Core.Feature.ValidateOtpUseCase.Validation;
 using OTPValidation.Core.Shared.Domain.Authenticator;
+using OTPValidation.Core.Shared.Domain.Repository;
 using OTPValidation.Core.Shared.Domain.Services;
-using OTPValidation.Core.Shared.Domain.Services.QrCodeGenerator;
 using OTPValidation.Core.Shared.Infrastructure.Database;
 using OTPValidation.Core.Shared.Infrastructure.Options;
-using System.Data;
+using OTPValidation.Core.Shared.Infrastructure.Repository;
 
 namespace OTPValidation.Core.Shared.Infrastructure.IoC
 {
@@ -22,6 +21,7 @@ namespace OTPValidation.Core.Shared.Infrastructure.IoC
             return services
                    .AddOptions(configuration)
                    .AddServices(configuration)
+                   .AddRepositorys(configuration)
                    .AddUseCases(configuration)
                    .AddPostgreDatabase(configuration);
         }
@@ -29,6 +29,7 @@ namespace OTPValidation.Core.Shared.Infrastructure.IoC
         private static IServiceCollection AddOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddOptions<PostgresDbOptions>().Bind(configuration.GetSection(PostgresDbOptions.SectionName));
+            services.AddOptions<OtpOptions>().Bind(configuration.GetSection(OtpOptions.SectionName));
 
             return services;
         }
@@ -36,8 +37,14 @@ namespace OTPValidation.Core.Shared.Infrastructure.IoC
         private static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IOtpService, OtpService>();
-            services.AddScoped<IAuthenticatorService, AuthenticatorService>();
-            services.AddScoped<IQrCodeGeneratorService, QrCodeGeneratorService>();
+            services.AddScoped<IAuthenticator, Authenticator>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddRepositorys(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IOtpRepository, OtpRepository>();
 
             return services;
         }
@@ -47,7 +54,7 @@ namespace OTPValidation.Core.Shared.Infrastructure.IoC
             services.AddScoped<ICreateOtpUseCase, CreateOtpUseCase>();
             services.AddScoped<ICreateOtpValidationUseCase, CreateOtpValidationUseCase>();
 
-            services.AddScoped<IValidateOtpUseCase, ValidateOtpUseCase>();
+            //services.AddScoped<IValidateOtpUseCase, ValidateOtpUseCase>();
             services.AddScoped<IValidateOtpValidationUseCase, ValidateOtpValidationUseCase>();
 
             return services;

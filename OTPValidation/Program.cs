@@ -1,4 +1,3 @@
-using DotNetEnv;
 using OTPValidation.API;
 using OTPValidation.Core.Shared.Infrastructure.IoC;
 using System.Text.Json.Serialization;
@@ -26,7 +25,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        options.RoutePrefix = string.Empty;
+        options.EnableFilter();
+    });
 }
 
 app.UseHttpsRedirection();

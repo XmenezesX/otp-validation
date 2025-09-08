@@ -20,7 +20,7 @@ namespace OTPValidation.Core.Shared.Infrastructure.Database.Migrations
                     secret_key = table.Column<string>(type: "text", nullable: false),
                     created_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     updated_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    deleted_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    deleted_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -4,6 +4,6 @@ namespace OTPValidation.Core.Shared.Infrastructure.Crosscuting.UseCase
 {
     public interface IUseCase <T>
     {
-        byte[] Exec(T request, CancellationToken cancellationToken);
+        Task<IOperation> Exec(T request, CancellationToken cancellationToken);
     }
 }

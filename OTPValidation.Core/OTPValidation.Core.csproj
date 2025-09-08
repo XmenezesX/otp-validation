@@ -12,6 +12,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.*" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.*" />
     <PackageReference Include="Otp.NET" Version="1.4.0" />
     <PackageReference Include="QRCoder" Version="1.6.0" />
@@ -19,11 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Shared\Domain\Entites\" />
-    <Folder Include="Shared\Domain\Repository\" />
-    <Folder Include="Shared\Domain\Response\" />
+    <Folder Include="Shared\Domain\Enums\" />
     <Folder Include="Shared\Domain\Services\Authenticator\" />
-    <Folder Include="Shared\Infrastructure\Repository\" />
   </ItemGroup>
 
 </Project>
