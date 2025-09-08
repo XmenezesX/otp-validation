@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.DependencyInjection;
-using OTPValidation.Core.Shared.Infrastructure.Options;
 
 namespace OTPValidation.Core.Shared.Infrastructure.Database
 {

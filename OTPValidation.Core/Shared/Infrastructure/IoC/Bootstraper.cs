@@ -54,7 +54,7 @@ namespace OTPValidation.Core.Shared.Infrastructure.IoC
             services.AddScoped<ICreateOtpUseCase, CreateOtpUseCase>();
             services.AddScoped<ICreateOtpValidationUseCase, CreateOtpValidationUseCase>();
 
-            //services.AddScoped<IValidateOtpUseCase, ValidateOtpUseCase>();
+            services.AddScoped<IValidateOtpUseCase, ValidateOtpUseCase>();
             services.AddScoped<IValidateOtpValidationUseCase, ValidateOtpValidationUseCase>();
 
             return services;

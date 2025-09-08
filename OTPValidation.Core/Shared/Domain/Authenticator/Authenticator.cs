@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using OtpNet;
-using OTPValidation.Core.Shared.Infrastructure.Crosscuting.Utils;
 using OTPValidation.Core.Shared.Infrastructure.Options;
 
 namespace OTPValidation.Core.Shared.Domain.Authenticator
@@ -18,7 +17,7 @@ namespace OTPValidation.Core.Shared.Domain.Authenticator
                              $"&issuer=OtpValidation&digits={otpOptions.NumberOfDigits}" +
                              $"&period={otpOptions.PeriodValidateInSeconds}";
 
-            return (secretKey.ToBase64(), otpAuthUri);
+            return (secretBase32, otpAuthUri);
         }
         public bool Validate(string code, string secretKey)
         {

@@ -18,14 +18,14 @@ namespace OTPValidation.API.Controllers.V1
             return this.DefaultResult(await useCase.Exec(request, cancellationToken));
         }
 
-        //[HttpPost("validate")]
-        //public IActionResult ValidateOTPAsync([FromBody] ValidateOtpRequest request,
-        //                                      [FromServices] IValidateOtpUseCase useCase,
-        //                                      CancellationToken cancellationToken)
-        //{
+        [HttpPost("validate")]
+        public async Task<IActionResult> ValidateOTPAsync([FromBody] ValidateOtpRequest request,
+                                                          [FromServices] IValidateOtpUseCase useCase,
+                                                          CancellationToken cancellationToken)
+        {
 
-        //    var result = useCase.Exec(request, cancellationToken);
-        //    return File(result, "image/png");
-        //}
+            return this.DefaultResult( await useCase.Exec(request, cancellationToken));
+           
+        }
     }
 }

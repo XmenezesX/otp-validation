@@ -6,6 +6,7 @@ using OTPValidation.Core.Shared.Infrastructure.CrossCutting.Operation;
 using OTPValidation.Core.Shared.Infrastructure.Database;
 using OTPValidation.Core.Shared.Infrastructure.Database.Entites;
 using Soollar.Transactional.Core.Shared.Infraestructure.Data.DataBase.PgAdmin.InternalDbContext.Map;
+using System.Threading;
 
 namespace OTPValidation.Core.Shared.Infrastructure.Repository
 {
@@ -23,15 +24,25 @@ namespace OTPValidation.Core.Shared.Infrastructure.Repository
 
         public async Task<IOperation<OtpEntity>> SelectByIdAsync(Guid id)
         {
-            var entityInfra = await  _dbContext.Otp.AsNoTracking()
-                                              .FirstOrDefaultAsync(x => x.Id == id);
-            if (entityInfra is null)
+            try
             {
-                Console.WriteLine("Entidade é nula");
-                return OperationFactory.CreateFail<OtpEntity>(NotificationErrors.Create(nameof(entityInfra), "Entidade nao encontrada!"));
+                var entityInfra = await _dbContext.Otp
+                    .AsNoTracking()
+                    .Where(x => x.Id == id && x.DeletedAt == null) 
+                    .FirstOrDefaultAsync();
+
+                if (entityInfra is null)
+                {
+                    Console.WriteLine("Entidade é nula");
+                    return OperationFactory.CreateFail<OtpEntity>(NotificationErrors.Create(nameof(entityInfra), "Entidade nao encontrada!"));
+                }
+                var entity = (OtpEntity)DataBaseToDomainMap.Map(entityInfra);
+                return entity.AsSuccess();
             }
-            var entity = (OtpEntity)DataBaseToDomainMap.Map(entityInfra);
-            return entity.AsSuccess();
+            catch (Exception ex)
+            {
+                return OperationFactory.CreateFail<OtpEntity>(ex);
+            }
         }
     }
 }

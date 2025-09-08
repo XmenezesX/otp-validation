@@ -7,6 +7,6 @@ namespace OTPValidation.Core.Shared.Domain.Services
     public interface IOtpService
     {
         Task<IOperation<CreateOtpResponse>> CreateOtpAsync(CreateOtpRequest request);
-        bool ValidateOtp(ValidateOtpRequest request);
+        Task<IOperation<ValidationOtpResponse>> ValidateOtp(ValidateOtpRequest request);
     }
 }

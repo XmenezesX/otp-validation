@@ -5,9 +5,9 @@ namespace OTPValidation.Core.Shared.Domain.Request
     public sealed record ValidateOtpRequest
     {
         [JsonPropertyName("code")]
-        public string Code { get; init; }
+        public string Code { get; set; }
 
-        [JsonPropertyName("otpId")]
-        public Guid OtpId { get; init; }
+        [JsonPropertyName("validationId")]
+        public Guid ValidationId { get; set; }
     }
 }

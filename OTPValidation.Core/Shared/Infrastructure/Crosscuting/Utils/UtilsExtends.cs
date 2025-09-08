@@ -24,8 +24,18 @@ namespace OTPValidation.Core.Shared.Infrastructure.Crosscuting.Utils
 			}
         }
 
-        public static string ToBase64(this byte[] bytes) {  return Convert.ToBase64String(bytes); }
+        public static string ToBase64(this byte[] bytes) 
+        {
+            return Convert.ToBase64String(bytes); 
+        }
 
+        public static byte[] FromBase64(this string base64String)
+        {
+            if (string.IsNullOrEmpty(base64String))
+                throw new ArgumentException("A string Base64 não pode ser nula ou vazia");
+
+            return Convert.FromBase64String(base64String);
+        }
         public static IActionResult DefaultResult(this ControllerBase controller, IOperation operation)
         {
             if (operation.IsFail())

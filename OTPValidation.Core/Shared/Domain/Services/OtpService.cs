@@ -31,8 +31,19 @@ namespace OTPValidation.Core.Shared.Domain.Services
             return response.AsSuccess();
         }
 
-        public bool ValidateOtp(ValidateOtpRequest request)
+        public async Task<IOperation<ValidationOtpResponse>> ValidateOtp(ValidateOtpRequest request)
         {
+            var operationEntity = await _serviceProvider.GetRequiredService<IOtpRepository>()
+                                                        .SelectByIdAsync(request.ValidationId);
+            if (operationEntity.IsFail())
+            {
+                Console.WriteLine("[OtpEntity] - Registro não encontrado");
+                return operationEntity.AsFail<ValidationOtpResponse>();
+            }
+            
+            var otpEntity = operationEntity.SucessAs<OtpEntity>();
+            var aaa = _serviceProvider.GetRequiredService<IAuthenticator>()
+                                      .Validate(request.Code, otpEntity.SecretKey);
             throw new NotImplementedException();
         }
     }
